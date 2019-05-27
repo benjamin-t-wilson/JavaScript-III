@@ -131,3 +131,57 @@ CharacterStats.prototype.takeDamage = function() {
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+  function Villain(stuff) {
+    Humanoid.call(this, stuff);
+  };
+  function Hero(stuff) {
+    Humanoid.call(this, stuff);
+  };
+  Villain.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype = Object.create(Humanoid.prototype);
+  Villain.prototype.attack = function(target) {
+    damage = 20;
+    target.healthPoints -= damage;
+    if(target.healthPoints <= 0) {
+      return (`${this.name} launches a devastating attack causing ${target.name} to take ${damage} damage! ` + target.destroy())
+    } else {
+    return `${this.name} launches a devastating attack causing ${target.name} to take ${damage} damage!`}
+  };
+  Hero.prototype.attack = function(target) {
+    damage = 35;
+    target.healthPoints -= damage;
+    if(target.healthPoints <= 0) {
+      return (`${this.name} launches a devastating attack causing ${target.name} to take ${damage} damage! ` + target.destroy())
+    } else {
+    return `${this.name} launches a devastating attack causing ${target.name} to take ${damage} damage!`}
+  };
+  const hero = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    healthPoints: 15,
+    name: 'Abel',
+    team: 'Son of Adam',
+    weapons: [
+    ],
+    language: 'Hebrew',
+  });
+  const villain = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    healthPoints: 50,
+    name: 'Cain',
+    team: 'Son of Adam',
+    weapons: ["A rock"
+    ],
+    language: 'Hebrew',
+  });
+  console.log(hero.attack(villain));
+  console.log(villain.attack(hero))
